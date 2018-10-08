@@ -24,6 +24,7 @@ class myCar(object):
     # =======================================================================
     def car_startup(self):
         # Implement the assignment code here.
+        self.car.accelerator.go_forward(10)
         pass
 
 
