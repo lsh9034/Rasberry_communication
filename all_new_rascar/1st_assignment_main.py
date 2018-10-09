@@ -24,7 +24,9 @@ class myCar(object):
     # =======================================================================
     def car_startup(self):
         # Implement the assignment code here.
-        
+        defalut = self.car.steering.turning_offset()
+        self.car.steering.turn(-40)
+        self.car.steering.turn(defalut)
         self.car.accelerator.go_forward(80)
         deltha = time.time()
         while(True):
