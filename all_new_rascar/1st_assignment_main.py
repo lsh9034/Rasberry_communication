@@ -24,11 +24,15 @@ class myCar(object):
     # =======================================================================
     def car_startup(self):
         # Implement the assignment code here.
-        self.car.accelerator.go_forward(50)
+        
+        self.car.accelerator.go_forward(80)
+        deltha = time.time()
         while(True):
-            if self.car.distance_detector.get_distance() :
-                self.car.accelerator.go_backward(50)
-                time.sleep(3)
+            if self.car.distance_detector.get_distance()< 15 :
+                self.car.accelerator.go_backward(70)
+                deltha = time.time() - deltha
+                time.sleep(deltha)
+                break
         self.car.accelerator.stop()
         pass
 
