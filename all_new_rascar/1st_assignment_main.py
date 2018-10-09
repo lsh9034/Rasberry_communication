@@ -1,4 +1,4 @@
-#########################################################################
+                                                  #########################################################################
 # Date: 2018/10/02
 # file name: 1st_assignment_main.py
 # Purpose: this code has been generated for the 4 wheels drive body
@@ -24,20 +24,23 @@ class myCar(object):
     # =======================================================================
     def car_startup(self):
         # Implement the assignment code here.
-        defalut = self.car.steering.turning_offset()
-        self.car.steering.set_angle(-40)
-        time.sleep(0.5)
-        self.car.steering.set_angle(44)
-        time.sleep(0.5)
-        self.car.accelerator.go_forward(80)
+       # defalut = self.car.steering.turning_offset()
+ #       self.car.steering.set_angle(30)
+  #      time.sleep(2)
+        self.car.steering.set_angle(90)
+    #    time.sleep(2)
+        self.car.accelerator.go_forward(50)
         deltha = time.time()
         while(True):
-            if self.car.distance_detector.get_distance()< 15 :
-                self.car.accelerator.go_backward(70)
+            distance = self.car.distance_detector.get_distance()
+            print(distance)
+            if distance< 15 and distance != -1:
                 deltha = time.time() - deltha
-                time.sleep(deltha)
+                self.car.accelerator.go_backward(50)
+                time.sleep(deltha) 
                 break
         self.car.accelerator.stop()
+        time.sleep(1)
         pass
 
 
