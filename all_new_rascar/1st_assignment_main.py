@@ -27,17 +27,18 @@ class myCar(object):
        # defalut = self.car.steering.turning_offset()
  #       self.car.steering.set_angle(30)
         self.car.steering.set_angle(90)
-        self.car.accelerator.go_forward(50)
+        self.car.accelerator.go_forward(100)
         deltha = time.time()
         count = 0
         while(True):
             distance = self.car.distance_detector.get_distance()
             print(distance)
-            if distance< 15 and distance != -1:
+            if distance< 10 and distance != -1:
                 count+=1
                 if count>=3:
                     deltha = time.time() - deltha
-                    self.car.accelerator.go_backward(50)
+                    self.car.accelerator.stop()
+                    self.car.accelerator.go_backward(85)
                     time.sleep(deltha)
                     break
             else:
