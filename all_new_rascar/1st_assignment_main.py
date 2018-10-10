@@ -32,13 +32,13 @@ class myCar(object):
         count = 0
         while(True):
             distance = self.car.distance_detector.get_distance()
-            print(distance)
-            if distance< 10 and distance != -1:
+           # print(distance)
+            if distance< 16 and distance != -1:
                 count+=1
                 if count>=3:
                     deltha = time.time() - deltha
                     self.car.accelerator.stop()
-                    self.car.accelerator.go_backward(85)
+                    self.car.accelerator.go_backward(95)
                     time.sleep(deltha)
                     break
             else:
