@@ -14,7 +14,7 @@ class myCar(object):
 
     def __init__(self, car_name):
         self.car = Car(car_name)
-
+        self.Limit_distance = 16;
     def drive_parking(self):
         self.car.drive_parking()
 
@@ -26,23 +26,24 @@ class myCar(object):
         # Implement the assignment code here.
        # defalut = self.car.steering.turning_offset()
  #       self.car.steering.set_angle(30)
-        self.car.steering.set_angle(90)
-        self.car.accelerator.go_forward(100)
+        speed = self.car.FASTEST
+        self.car.steering.center_alignment()
+        self.car.accelerator.go_forward(speed)
         deltha = time.time()
         count = 0
         while(True):
             distance = self.car.distance_detector.get_distance()
            # print(distance)
-            if distance< 16 and distance != -1:
+            if distance< self.Limit_distance and distance != -1:
                 count+=1
                 if count>=3:
-                    deltha = time.time() - deltha
                     self.car.accelerator.stop()
-                    self.car.accelerator.go_backward(95)
-                    time.sleep(deltha)
+                    deltha = time.time() - deltha
                     break
             else:
                 count=0
+        self.car.accelerator.go_backward(speed - 5)
+        time.sleep(deltha)
         self.car.accelerator.stop()
         time.sleep(1)
         pass
