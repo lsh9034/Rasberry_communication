@@ -20,23 +20,23 @@ class myCar(object):
 
     def drive_parking(self):
         self.car.drive_parking()
-        while(True):
-            status = self.car.line_detector.read_digital()
-            degree = 90
-            check = False
-            for i in range(len(status)):
-                if status[i]==1 and check == False:
-                    degree = self.weight[i]*self.default_degree
-                    check = True
-                else:   
-                    degree +=self.default_degree
-            self.car.steering.turn(degree)
     # =======================================================================
     # 2ND_ASSIGNMENT_CODE
     # Complete the code to perform Second Assignment
     # =======================================================================
     def car_startup(self):
         # implement the assignment code here
+        while (True):
+            status = self.car.line_detector.read_digital()
+            degree = 90
+            check = False
+            for i in range(len(status)):
+                if status[i] == 1 and check == False:
+                    degree = self.weight[i] * self.default_degree
+                    check = True
+                else:
+                    degree += self.default_degree
+            self.car.steering.turn(degree)
         pass
 
 
