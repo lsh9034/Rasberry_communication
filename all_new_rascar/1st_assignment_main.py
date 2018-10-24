@@ -14,7 +14,8 @@ class myCar(object):
 
     def __init__(self, car_name):
         self.car = Car(car_name)
-        self.Limit_distance = 16;
+        self.Limit_distance = 13;
+        self.motor_ratio = 0.9
     def drive_parking(self):
         self.car.drive_parking()
 
@@ -42,8 +43,8 @@ class myCar(object):
                     break
             else:
                 count=0
-        self.car.accelerator.go_backward(speed - 5)
-        time.sleep(deltha)
+        self.car.accelerator.go_backward(speed)
+        time.sleep(deltha*self.motor_ratio)
         self.car.accelerator.stop()
         time.sleep(1)
         pass

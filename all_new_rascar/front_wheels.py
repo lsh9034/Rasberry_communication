@@ -69,9 +69,6 @@ class Front_Wheels(object):
             angle = self._angle["right"]
         self.wheel.write(angle)
 
-    def set_angle(self,angle):
-        self.wheel.write(angle)
-
     @property
     def channel(self):
         return self._channel
