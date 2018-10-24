@@ -26,9 +26,10 @@ class myCar(object):
     # =======================================================================
     def car_startup(self):
         # implement the assignment code here
+        past_degree = 90
         while (True):
             status = self.car.line_detector.read_digital()
-            degree = 90
+            degree = past_degree
             check = False
             for i in range(len(status)):
                 if status[i] == 1 and check == False:
@@ -36,7 +37,9 @@ class myCar(object):
                     check = True
                 else:
                     degree += self.default_degree
-            self.car.steering.turn(degree)
+            if degree != past_degree:
+                self.car.steering.turn(degree)
+                past_degree = degree
         pass
 
 
