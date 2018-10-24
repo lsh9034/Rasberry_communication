@@ -29,16 +29,18 @@ class myCar(object):
         past_degree = 90
         while (True):
             status = self.car.line_detector.read_digital()
-            degree = past_degree
+            degree = 90
             check = False
             for i in range(len(status)):
                 if status[i] == 1 and check == False:
                     degree = self.weight[i] * self.default_degree
                     check = True
-                else:
+                elif status[i] == ! and check == True
                     degree += self.default_degree
             if degree != past_degree:
                 self.car.steering.turn(degree)
+                print(status)
+                print(degree)
                 past_degree = degree
         pass
 
