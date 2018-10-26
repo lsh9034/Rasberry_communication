@@ -15,7 +15,7 @@ class myCar(object):
 
     def __init__(self, car_name):
         self.car = Car(car_name)
-        self.default_degree = 10
+        self.default_degree = 6
         self.weight = [-4,-2,0,2,4]
 
     def drive_parking(self):
@@ -33,9 +33,9 @@ class myCar(object):
             check = False
             for i in range(len(status)):
                 if status[i] == 1 and check == False:
-                    degree = self.weight[i] * self.default_degree
+                    degree += self.weight[i] * self.default_degree
                     check = True
-                elif status[i] == ! and check == True
+                elif status[i] == 1 and check == True:
                     degree += self.default_degree
             if degree != past_degree:
                 self.car.steering.turn(degree)
