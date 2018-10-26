@@ -28,6 +28,7 @@ class myCar(object):
         # implement the assignment code here
         past_degree = 90
         self.car.accelerator.go_forward(100)
+        check_start = True
         while (True):
             status = self.car.line_detector.read_digital()
             degree = 90
@@ -36,6 +37,7 @@ class myCar(object):
                 if status[i] == 1 and check == False:
                     degree += self.weight[i] * self.default_degree
                     check = True
+                    check_start=False
                 elif status[i] == 1 and check == True:
                     degree += self.default_degree
             if degree != past_degree:
@@ -43,6 +45,9 @@ class myCar(object):
                 print(status)
                 print(degree)
                 past_degree = degree
+            if check==False and check_start==False:
+                break
+        self.car.accelerator.stop()
         pass
 
 
