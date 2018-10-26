@@ -27,6 +27,7 @@ class myCar(object):
     def car_startup(self):
         # implement the assignment code here
         past_degree = 90
+        self.car.accelerator.go_forward(100)
         while (True):
             status = self.car.line_detector.read_digital()
             degree = 90
