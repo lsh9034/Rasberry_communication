@@ -49,6 +49,8 @@ class myCar(object):
                 past_degree = degree
             if check==False and check_start==False:
                 break
+        self.car.accelerator.go_backward(10)
+        time.sleep(0.7)
         self.car.accelerator.stop()
         pass
 
