@@ -27,19 +27,21 @@ class myCar(object):
     def car_startup(self):
         # implement the assignment code here
         past_degree = 90
-        self.car.accelerator.go_forward(100)
         check_start = True
+        speed = self.car.FASTEST
+        self.car.accelerator.go_forward(speed)
         while (True):
             status = self.car.line_detector.read_digital()
             degree = 90
             check = False
             for i in range(len(status)):
-                if status[i] == 1 and check == False:
-                    degree += self.weight[i] * self.default_degree
-                    check = True
-                    check_start=False
-                elif status[i] == 1 and check == True:
-                    degree += self.default_degree
+                if status[i] == 1:
+                    if check == False:
+                        degree += self.weight[i] * self.default_degree
+                        check = True
+                        check_start=False
+                    elif check == True:
+                        degree += self.default_degree
             if degree != past_degree:
                 self.car.steering.turn(degree)
                 print(status)
