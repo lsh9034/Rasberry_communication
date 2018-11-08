@@ -38,9 +38,10 @@ class myCar(object):
 
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
-        #check_start = True  # 만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
+        #check_start = True  # 만약 센서가 검은색 선 위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
         speed = self.car.FASTEST - 50  # 가장 빠른 속도
         self.car.accelerator.go_forward(speed)  # 전진
+        count = 0
         while (True):
             status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
             degree = 90
@@ -55,13 +56,15 @@ class myCar(object):
                         degree += self.default_degree
 
             if check == False:
+                count=0
                 self.Sort_line(past_degree,speed)
 
             elif degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
                 past_degree = degree
-            elif [1,1,1,1,1] == status:
+            elif [1,1,1,1,1] == status and count>20:
                 break
+            count+=1
 
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)
