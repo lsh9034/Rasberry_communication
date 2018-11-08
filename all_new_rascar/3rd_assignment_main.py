@@ -14,7 +14,7 @@ class myCar(object):
 
     def __init__(self, car_name):
         self.car = Car(car_name)
-        self.default_degree = 6 #기본적으로 꺽어야하는 기본 각도
+        self.default_degree = 12 #기본적으로 꺽어야하는 기본 각도
         self.weight = [-4,-2,0,2,4] #검은 색 선의 위치에 따라 곱해야할 배수
 
     def drive_parking(self):
@@ -30,15 +30,16 @@ class myCar(object):
         angle = 90 - temp
         self.car.steering.turn(angle)
         self.car.accelerator.go_backward(speed)
-        while (self.car.line_detector.is_in_line()):
+        while (not self.car.line_detector.is_in_line()):
             continue
-        time.sleep(0.4)
+        time.sleep(0.1)
+        self.car.steering.turn(past_degree)
         self.car.accelerator.go_forward(speed)
 
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
         #check_start = True  # 만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
-        speed = self.car.FASTEST - 60  # 가장 빠른 속도
+        speed = self.car.FASTEST - 50  # 가장 빠른 속도
         self.car.accelerator.go_forward(speed)  # 전진
         while (True):
             status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
@@ -56,10 +57,10 @@ class myCar(object):
             if check == False:
                 self.Sort_line(past_degree,speed)
 
-            if degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
+            elif degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
                 past_degree = degree
-            if [1,1,1,1,1] == status:
+            elif [1,1,1,1,1] == status:
                 break
 
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
