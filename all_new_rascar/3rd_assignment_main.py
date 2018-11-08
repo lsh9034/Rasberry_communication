@@ -24,6 +24,17 @@ class myCar(object):
     # 3RD_ASSIGNMENT_CODE
     # Complete the code to perform Third Assignment
     # =======================================================================
+
+    def Sort_line(self,past_degree,speed):
+        temp = past_degree - 90
+        angle = 90 - temp
+        self.car.steering.turn(angle)
+        self.car.accelerator.go_backward(speed)
+        while (self.car.line_detector.is_in_line()):
+            continue
+        time.sleep(0.4)
+        self.car.accelerator.go_forward(speed)
+
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
         #check_start = True  # 만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
@@ -41,16 +52,16 @@ class myCar(object):
                         #check_start = False
                     elif check == True:  # 그 다음 1을 만났을 때는 기본 각도만큼 더해줌
                         degree += self.default_degree
+
+            if check == False:
+                self.Sort_line(past_degree,speed)
+
             if degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
                 past_degree = degree
             if [1,1,1,1,1] == status:
                 break
-            elif check == False:
-                self.car.accelerator.go_backward(speed)
-                while(self.car.line_detector.is_in_line()):
-                    continue
-                time.sleep(0.4)
+
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)
         self.car.accelerator.stop()
