@@ -27,7 +27,7 @@ class myCar(object):
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
         #check_start = True  # 만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
-        speed = self.car.FASTEST  # 가장 빠른 속도
+        speed = self.car.FASTEST - 60  # 가장 빠른 속도
         self.car.accelerator.go_forward(speed)  # 전진
         while (True):
             status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
@@ -46,6 +46,11 @@ class myCar(object):
                 past_degree = degree
             if [1,1,1,1,1] == status:
                 break
+            elif check == False:
+                self.car.accelerator.go_backward(speed)
+                while(self.car.line_detector.is_in_line()):
+                    continue
+                time.sleep(0.4)
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)
         self.car.accelerator.stop()
