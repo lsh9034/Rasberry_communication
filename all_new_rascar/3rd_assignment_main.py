@@ -1,6 +1,6 @@
 #########################################################################
 # Date: 2018/10/02
-# file name: 2nd_assignment_main.py
+# file name: 3rd_assignment_main.py
 # Purpose: this code has been generated for the 4 wheel drive body
 # moving object to perform the project with line detector
 # this code is used for the student only
@@ -8,7 +8,6 @@
 
 from car import Car
 import time
-
 
 
 class myCar(object):
@@ -20,38 +19,39 @@ class myCar(object):
 
     def drive_parking(self):
         self.car.drive_parking()
+
     # =======================================================================
-    # 2ND_ASSIGNMENT_CODE
-    # Complete the code to perform Second Assignment
+    # 3RD_ASSIGNMENT_CODE
+    # Complete the code to perform Third Assignment
     # =======================================================================
-    def car_startup(self):
-        # implement the assignment code here
-        past_degree = 90  #처음은 정면
-        check_start = True #만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
-        speed = self.car.FASTEST #가장 빠른 속도
-        self.car.accelerator.go_forward(speed) #전진
+    def line_tracing(self):
+        past_degree = 90  # 처음은 정면
+        #check_start = True  # 만약 센서가 검은색 선위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
+        speed = self.car.FASTEST  # 가장 빠른 속도
+        self.car.accelerator.go_forward(speed)  # 전진
         while (True):
-            status = self.car.line_detector.read_digital() #5개의 센서값 받아옴
+            status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
             degree = 90
-            check = False #왼쪽에서 맨 처음 1을 만났을 때는 체크하기 위해
+            check = False  # 왼쪽에서 맨 처음 1을 만났을 때는 체크하기 위해
             for i in range(len(status)):
-                if status[i] == 1: #맨 처음 1을 만났을 때는 가중치를 곱해줌
+                if status[i] == 1:  # 맨 처음 1을 만났을 때는 가중치를 곱해줌
                     if check == False:
                         degree += self.weight[i] * self.default_degree
                         check = True
-                        check_start=False
-                    elif check == True:  #그 다음 1을 만났을 때는 기본 각도만큼 더해줌
+                        #check_start = False
+                    elif check == True:  # 그 다음 1을 만났을 때는 기본 각도만큼 더해줌
                         degree += self.default_degree
-            if degree != past_degree: #전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
+            if degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
-                print(status)
-                print(degree)
                 past_degree = degree
-            if check==False and check_start==False: #센서 값이 모두 0일 경우
+            if [1,1,1,1,1] == status:
                 break
-        self.car.accelerator.go_backward(10) #관성제어하기 위해 약간 후진하여 빨리 정지하게함.
+        self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)
         self.car.accelerator.stop()
+    def car_startup(self):
+        # implement the assignment code here
+        self.line_tracing()
         pass
 
 
