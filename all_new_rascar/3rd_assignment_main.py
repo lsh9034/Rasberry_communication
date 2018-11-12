@@ -35,7 +35,7 @@ class myCar(object):
         time.sleep(0.1)
         self.car.steering.turn(past_degree)
         self.car.accelerator.go_forward(speed)
-        self.set_L_R_speed(past_degree,speed)
+        #self.set_L_R_speed(past_degree,speed)
 
     def set_L_R_speed(self,degree,speed):
         temp_degree = 90 - degree
@@ -99,7 +99,7 @@ class myCar(object):
             elif degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
                 past_degree = degree
-                self.set_L_R_speed(degree,speed)
+                #self.set_L_R_speed(degree,speed)
 
             elif [1,1,1,1,1] == status and count>50:
                 break
@@ -118,11 +118,11 @@ class myCar(object):
 if __name__ == "__main__":
     try:
         myCar = myCar("CarName")
-        #myCar.car_startup()
-        myCar.car.accelerator.go_forward(60)
-        myCar.car.accelerator.left_wheel.speed = 30
-        while(1):
-            continue
+        myCar.car_startup()
+        #myCar.car.accelerator.go_forward(60)
+        #myCar.car.accelerator.left_wheel.speed = 30
+        #while(1):
+         #   continue
     except KeyboardInterrupt:
         # when the Ctrl+C key has been pressed,
         # the moving object will be stopped
