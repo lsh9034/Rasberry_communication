@@ -42,22 +42,44 @@ class myCar(object):
         left_motor_speed = speed
         right_motor_speed = speed
         if temp_degree >= 0 :
-            speed_ratio = (1 - temp_degree/100)
+            speed_ratio = (1 - temp_degree/50)
             left_motor_speed = left_motor_speed * speed_ratio
         elif temp_degree < 0:
-            speed_ratio = (1 + temp_degree/100)
+            speed_ratio = (1 + temp_degree/50)
             right_motor_speed = right_motor_speed * speed_ratio
 
         self.car.accelerator.right_wheel.speed = int(left_motor_speed)
         self.car.accelerator.left_wheel.speed = int(right_motor_speed)
 
+    def Obstacle_detect(self,Limit_distance):
+        distance = self.car.distance_detector.get_distance()
+        # print(distance)
+        if distance < Limit_distance and distance != -1:
+            return True
+        else:
+            return False
+
+    def avoid_Obastacle(self,speed):
+        self.car.accelerator.go_forward(speed)
+        self.car.steering.turn(60)
+        time.sleep(0.8)
+        self.car.steering.turn(120)
+
+
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
         #check_start = True  # 만약 센서가 검은색 선 위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
-        speed = self.car.FASTEST - 50
+        speed = self.car.FASTEST - 30
         self.car.accelerator.go_forward(speed)  # 전진
         count = 0
+        count_obstacle = 0
         while (True):
+            if(self.Obstacle_detect(10)):
+                count_obstacle+=1
+                if(count_obstacle>=3):
+                    self.avoid_Obastacle()
+            else:
+                count_obstacle = 0
             status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
             degree = 90
             check = False  # 왼쪽에서 맨 처음 1을 만났을 때는 체크하기 위해
