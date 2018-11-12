@@ -64,8 +64,6 @@ class myCar(object):
         self.car.steering.turn(60)
         time.sleep(1)
         self.car.steering.turn(120)
-        time.sleep(1)
-        self.car.steering.turn(90)
         self.car.accelerator.go_forward(speed)
         while(not self.car.line_detector.is_in_line()):
             continue
