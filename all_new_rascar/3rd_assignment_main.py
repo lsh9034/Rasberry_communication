@@ -48,8 +48,8 @@ class myCar(object):
             speed_ratio = (1 + temp_degree/100)
             right_motor_speed = right_motor_speed * speed_ratio
 
-        self.car.accelerator.left_wheel.speed = int(left_motor_speed)
-        self.car.accelerator.right_wheel.speed = int(right_motor_speed)
+        self.car.accelerator.right_wheel.speed = int(left_motor_speed)
+        self.car.accelerator.left_wheel.speed = int(right_motor_speed)
 
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
@@ -98,8 +98,9 @@ if __name__ == "__main__":
         myCar = myCar("CarName")
         #myCar.car_startup()
         myCar.car.accelerator.go_forward(60)
-        myCar.car.accelerator.left_wheel.speed = 0
-
+        myCar.car.accelerator.left_wheel.speed = 30
+        while(1):
+            continue
     except KeyboardInterrupt:
         # when the Ctrl+C key has been pressed,
         # the moving object will be stopped
