@@ -60,7 +60,7 @@ class myCar(object):
             return False
 
     def avoid_Obastacle(self,speed):
-        self.car.accelerator.go_forward(speed)
+        self.car.accelerator.go_forward(50)
         self.car.steering.turn(60)
         time.sleep(1)
         self.car.steering.turn(120)
