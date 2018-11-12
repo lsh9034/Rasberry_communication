@@ -78,13 +78,17 @@ class myCar(object):
         self.car.accelerator.go_forward(speed)  # 전진
         count = 0
         count_obstacle = 0
+        pass_obstacle = 0
         while (True):
-            if(self.Obstacle_detect(25)):
-                count_obstacle+=1
-                if(count_obstacle>=3):
-                    self.avoid_Obastacle(speed)
-            else:
-                count_obstacle = 0
+            if(pass_obstacle<2):
+                if (self.Obstacle_detect(25)):
+                    count_obstacle += 1
+                    if (count_obstacle >= 3):
+                        self.avoid_Obastacle(speed)
+                        pass_obstacle += 1
+                else:
+                    count_obstacle = 0
+
             status = self.car.line_detector.read_digital()  # 5개의 센서값 받아옴
             degree = 90
             check = False  # 왼쪽에서 맨 처음 1을 만났을 때는 체크하기 위해
