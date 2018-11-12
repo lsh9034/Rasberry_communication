@@ -14,7 +14,7 @@ class myCar(object):
 
     def __init__(self, car_name):
         self.car = Car(car_name)
-        self.default_degree = 8 #기본적으로 꺽어야하는 기본 각도
+        self.default_degree = 10 #기본적으로 꺽어야하는 기본 각도
         self.weight = [-4,-2,0,2,4] #검은 색 선의 위치에 따라 곱해야할 배수
 
     def drive_parking(self):
@@ -78,7 +78,7 @@ class myCar(object):
         count = 0
         count_obstacle = 0
         while (True):
-            if(self.Obstacle_detect(10)):
+            if(self.Obstacle_detect(25)):
                 count_obstacle+=1
                 if(count_obstacle>=3):
                     self.avoid_Obastacle(speed)
@@ -105,7 +105,7 @@ class myCar(object):
                 past_degree = degree
                 #self.set_L_R_speed(degree,speed)
 
-            elif [1,1,1,1,1] == status and count>5000:
+            elif [1,1,1,1,1] == status and count>4000:
                 break
             count+=1
             #print(count)
