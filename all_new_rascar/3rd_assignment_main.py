@@ -81,7 +81,7 @@ class myCar(object):
         pass_obstacle = 0
         while (True):
             if(pass_obstacle<2):
-                if (self.Obstacle_detect(25)):
+                if (self.Obstacle_detect(30)):
                     count_obstacle += 1
                     if (count_obstacle >= 3):
                         self.avoid_Obastacle(speed)
@@ -110,7 +110,7 @@ class myCar(object):
                 past_degree = degree
                 #self.set_L_R_speed(degree,speed)
 
-            elif [1,1,1,1,1] == status and count > 3:
+            elif [1,1,1,1,1] == status and count > 4000:
                 break
             count+=1
             print(count)
