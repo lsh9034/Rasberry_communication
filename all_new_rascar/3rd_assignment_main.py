@@ -29,7 +29,7 @@ class myCar(object):
         temp = past_degree - 90
         angle = 90 - temp
         self.car.steering.turn(90)
-        self.car.accelerator.go_backward(speed) #양쪽 모터 값이 speed로 바뀜
+        self.car.accelerator.go_backward(speed * 0.7) #양쪽 모터 값이 speed로 바뀜
         while (not self.car.line_detector.is_in_line()):
             continue
         time.sleep(0.1)
