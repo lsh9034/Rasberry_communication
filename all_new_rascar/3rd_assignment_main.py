@@ -28,7 +28,7 @@ class myCar(object):
     def Sort_line(self,past_degree,speed):
         temp = past_degree - 90
         angle = 90 - temp
-        self.car.steering.turn(90)
+        self.car.steering.turn(angle)
         self.car.accelerator.go_backward(speed * 0.7) #양쪽 모터 값이 speed로 바뀜
         while (not self.car.line_detector.is_in_line()):
             continue
@@ -60,11 +60,14 @@ class myCar(object):
             return False
 
     def avoid_Obastacle(self,speed):
-        self.car.accelerator.go_forward(speed)
-        self.car.steering.turn(75)
-        time.sleep(0.6)
-        self.car.steering.turn(105)
-        self.car.accelerator.go_forward(speed)
+        self.car.accelerator.go_forward(50)
+        self.car.steering.turn(70)
+        time.sleep(1.1)
+     #   while(not self.car.line_detector.is_in_line()):
+      #      continue
+        self.car.steering.turn(115)
+        self.car.accelerator.go_forward(50)
+        time.sleep(1)
         while(not self.car.line_detector.is_in_line()):
             continue
 
@@ -103,10 +106,10 @@ class myCar(object):
                 past_degree = degree
                 #self.set_L_R_speed(degree,speed)
 
-            elif [1,1,1,1,1] == status and count>4000:
+            elif [1,1,1,1,1] == status and count > 3:
                 break
             count+=1
-            #print(count)
+            print(count)
 
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)
