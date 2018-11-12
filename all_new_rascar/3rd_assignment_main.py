@@ -28,18 +28,33 @@ class myCar(object):
     def Sort_line(self,past_degree,speed):
         temp = past_degree - 90
         angle = 90 - temp
-        self.car.steering.turn(angle)
-        self.car.accelerator.go_backward(speed)
+        self.car.steering.turn(90)
+        self.car.accelerator.go_backward(speed) #양쪽 모터 값이 speed로 바뀜
         while (not self.car.line_detector.is_in_line()):
             continue
         time.sleep(0.1)
         self.car.steering.turn(past_degree)
         self.car.accelerator.go_forward(speed)
+        self.set_L_R_speed(past_degree,speed)
+
+    def set_L_R_speed(self,degree,speed):
+        temp_degree = 90 - degree
+        left_motor_speed = speed
+        right_motor_speed = speed
+        if temp_degree >= 0 :
+            speed_ratio = (1 - temp_degree/100)
+            left_motor_speed = left_motor_speed * speed_ratio
+        elif temp_degree < 0:
+            speed_ratio = (1 + temp_degree/100)
+            right_motor_speed = right_motor_speed * speed_ratio
+
+        self.car.accelerator.left_wheel.speed = left_motor_speed
+        self.car.accelerator.right_wheel.speed = right_motor_speed
 
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
         #check_start = True  # 만약 센서가 검은색 선 위에 없이 시작했을 경우에도 작동하기 위해 만든 변수
-        speed = self.car.FASTEST - 50  # 가장 빠른 속도
+        speed = self.car.FASTEST - 50
         self.car.accelerator.go_forward(speed)  # 전진
         count = 0
         while (True):
@@ -62,9 +77,12 @@ class myCar(object):
             elif degree != past_degree:  # 전에 꺽은 각도와 다른 경우에만 서보모터에 각도 적용
                 self.car.steering.turn(degree)
                 past_degree = degree
-            elif [1,1,1,1,1] == status and count>20:
+                self.set_L_R_speed(degree,speed)
+
+            elif [1,1,1,1,1] == status and count>50:
                 break
             count+=1
+            print(count)
 
         self.car.accelerator.go_backward(10)  # 관성제어하기 위해 약간 후진하여 빨리 정지하게함.
         time.sleep(0.7)

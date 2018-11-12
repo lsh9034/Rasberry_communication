@@ -69,7 +69,6 @@ class Rear_Wheels(object):
         # Setup motor speed
         self._speed = speed_value
         self.speed = self._speed
-
         self.left_wheel.forward()
         self.right_wheel.forward()
         if self._DEBUG:
