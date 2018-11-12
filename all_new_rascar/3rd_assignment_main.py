@@ -48,8 +48,8 @@ class myCar(object):
             speed_ratio = (1 + temp_degree/100)
             right_motor_speed = right_motor_speed * speed_ratio
 
-        self.car.accelerator.left_wheel.speed = left_motor_speed
-        self.car.accelerator.right_wheel.speed = right_motor_speed
+        self.car.accelerator.left_wheel.speed = int(left_motor_speed)
+        self.car.accelerator.right_wheel.speed = int(right_motor_speed)
 
     def line_tracing(self):
         past_degree = 90  # 처음은 정면
